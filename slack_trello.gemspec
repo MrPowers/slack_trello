@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matthew Powers"]
   spec.email         = ["matthewkevinpowers@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Using Slack slash commands to make cards on Trello boards.}
+  spec.description   = %q{Helper methods to effectively use Slack & Trello with your team's Scrum processes.}
+  spec.homepage      = "https://github.com/MrPowers/slack_trello"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "ruby-trello"
 end
