@@ -2,10 +2,11 @@ module SlackTrello; class WorkCommand
 
   attr_accessor :trello_card
 
-  attr_reader :parser
+  attr_reader :parser, :webhook_url
 
-  def initialize(args)
+  def initialize(args, webhook_url)
     @parser = ResponseParser.new(args)
+    @webhook_url = webhook_url
   end
 
   def run
@@ -13,11 +14,21 @@ module SlackTrello; class WorkCommand
     return list_not_found_message unless trello_list
 
     create_trello_card
-    #slacky.speak success_message
+    speaker.speak success_message
     "You should see a notification with a link. If not, the card might not have been created."
   end
 
   private
+
+  def speaker
+    Speaker.new(
+      {
+        webhook_url: webhook_url,
+        channel: parser.channel_name,
+        username: parser.user_name
+      }
+    )
+  end
 
   def trello_board
     @trello_board ||= Trello::Board.all.find do |b|
@@ -43,9 +54,9 @@ module SlackTrello; class WorkCommand
     "A Trello list named 'From Chat' must be added to the '#{trello_board_name}' board for the work command to function."
   end
 
-  #def success_message
-    #":trello: [#{slack_name}] has created a new work card: <#{trello_card.short_url}|#{text.strip}>"
-  #end
+  def success_message
+    ":trello: [#{parser.user_name}] has created a new work card: <#{trello_card.short_url}|#{parser.text.strip}>"
+  end
 
   def card_title
     size = "(UNSIZED)"

@@ -2,18 +2,6 @@ require 'spec_helper'
 
 module SlackTrello; describe ResponseParser do
 
-    args = {
-      "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-      "team_id" => "T0001",
-      "team_domain" => "example",
-      "channel_id" => "C2147483705",
-      "channel_name" => "pandas",
-      "user_id" => "U2147483697",
-      "user_name" => "Matt",
-      "command" => "/work",
-      "text" => "This is some example work card"
-    }
-
   let(:parser) do
     args = {
       "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
