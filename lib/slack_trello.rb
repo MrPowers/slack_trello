@@ -1,3 +1,5 @@
+require "slack-notifier"
+
 require "slack_trello/version"
 require "slack_trello/response_parser"
 require "slack_trello/text_parser"
