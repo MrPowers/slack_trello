@@ -13,7 +13,7 @@ module SlackTrello; class Speaker
   private
 
   def session
-    @session ||= Slack::Notifier.new(@token, channel: @channel,  username: @username)
+    @session ||= Slack::Notifier.new(@webhook_url, channel: @channel,  username: @username)
   end
 
 end; end
