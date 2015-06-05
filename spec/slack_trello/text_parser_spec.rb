@@ -2,28 +2,42 @@ require 'spec_helper'
 
 module SlackTrello; describe TextParser do
 
-  let(:parser) { TextParser.new("(this is) some text") }
+  let(:dummy) do
+    (Class.new do
+      include TextParser
+
+      def text
+        "(well) This went swimmingly"
+      end
+    end).new
+  end
 
   context "#args" do
     it "returns the arguments" do
-      expect(parser.args).to eq ["this", "is"]
+      expect(dummy.args).to eq ["well"]
     end
   end
 
   context "#text_message" do
     it "returns the message" do
-      expect(parser.text_message).to eq "some text"
+      expect(dummy.text_message).to eq "This went swimmingly"
     end
   end
 
   context "valid_text_format?" do
     it "returns true if the format is valid" do
-      expect(parser.valid_text_format?).to eq true
+      expect(dummy.valid_text_format?).to eq true
     end
 
     it "returns false if the format is not valid" do
-      parser = TextParser.new("some text")
-      expect(parser.valid_text_format?).to eq false
+      stupid_dummy = (Class.new do
+        include TextParser
+
+        def text
+          "not valid"
+        end
+      end).new
+      expect(stupid_dummy.valid_text_format?).to eq false
     end
   end
 

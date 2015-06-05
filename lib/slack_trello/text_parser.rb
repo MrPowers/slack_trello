@@ -1,11 +1,4 @@
-module SlackTrello; class TextParser
-
-  attr_reader :text
-
-  def initialize(text, options = {})
-    @text = text
-    @required_arguments = options.fetch(:required_arguments, nil)
-  end
+module SlackTrello; module TextParser
 
   def args
     matched_text[1].strip.split(" ")
