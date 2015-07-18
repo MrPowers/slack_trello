@@ -1,7 +1,5 @@
 module SlackTrello; class WorkCommand
 
-  attr_accessor :trello_card
-
   attr_reader :parser, :webhook_url
 
   def initialize(args, webhook_url)
@@ -10,10 +8,10 @@ module SlackTrello; class WorkCommand
   end
 
   def run
-    return board_not_found_message unless trello_board
-    return list_not_found_message unless trello_list
+    return board_not_found_message unless trello_card_creator.trello_board
+    return list_not_found_message unless trello_card_creator.trello_list
 
-    create_trello_card
+    trello_card
     speaker.speak success_message
     "You should see a notification with a link. If not, the card might not have been created."
   end
@@ -21,25 +19,25 @@ module SlackTrello; class WorkCommand
   private
 
   def speaker
-    Speaker.new(
-      {
-        webhook_url: webhook_url,
-        channel: parser.channel_name,
-        username: parser.user_name
-      }
-    )
+    args = {
+      webhook_url: webhook_url,
+      channel: parser.channel_name,
+      username: parser.user_name
+    }
+    Speaker.new(args)
   end
 
-  def trello_board
-    @trello_board ||= Trello::Board.all.find do |b|
-      b.name.downcase == trello_board_name.downcase
-    end
+  def trello_card_creator
+    args = {
+      board_name: trello_board_name,
+      list_name: "From Chat",
+      card_name: card_title
+    }
+    @trello_card_creator ||= CreateTrelloCard.new(args)
   end
 
-  def trello_list
-    @trello_list ||= trello_board.lists.find do |l|
-      l.name == "From Chat"
-    end
+  def trello_card
+    trello_card_creator.card
   end
 
   def trello_board_name
@@ -63,17 +61,6 @@ module SlackTrello; class WorkCommand
     title = parser.text.strip
     tag = "{tag???}"
     [size, title, tag].join(" ")
-  end
-
-  def create_trello_card
-    card = Trello::Card.new
-    card.name = card_title
-    card.list_id = trello_list.id
-    card.save
-    card.due = Time.now + 30.days
-    card.pos = "bottom"
-    card.save
-    self.trello_card = card
   end
 
 end; end

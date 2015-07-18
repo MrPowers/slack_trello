@@ -17,8 +17,6 @@ module SlackTrello; class CreateTrelloCard
     @card = card
   end
 
-  private
-
   def trello_board
     @trello_board ||= Trello::Board.all.find do |b|
       spaceify(b.name) == spaceify(board_name)
@@ -30,6 +28,8 @@ module SlackTrello; class CreateTrelloCard
       spaceify(l.name) == spaceify(list_name)
     end
   end
+
+  private
 
   def spaceify(str)
     str.gsub(/-|_/, " ").downcase
