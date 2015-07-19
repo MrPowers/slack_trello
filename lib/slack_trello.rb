@@ -1,3 +1,4 @@
+require "active_support/core_ext/string"
 require "slack-notifier"
 
 require "slack_trello/version"
@@ -11,5 +12,4 @@ require "slack_trello/work_command"
 require "slack_trello/retro_command"
 
 module SlackTrello
-  # Your code goes here...
 end
