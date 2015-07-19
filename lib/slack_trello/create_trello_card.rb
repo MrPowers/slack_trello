@@ -10,11 +10,10 @@ module SlackTrello; class CreateTrelloCard
 
   def card
     return @card if @card
-    card = Trello::Card.new
-    card.name = card_name
-    card.list_id = trello_list.id
-    card.save
-    @card = card
+    @card = Trello::Card.new
+    @card.name = card_name
+    @card.list_id = trello_list.id
+    @card.save
   end
 
   def trello_board

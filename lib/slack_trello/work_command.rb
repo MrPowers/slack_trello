@@ -57,10 +57,8 @@ module SlackTrello; class WorkCommand
   end
 
   def card_title
-    size = "(UNSIZED)"
-    title = parser.text.strip
-    tag = "{tag???}"
-    [size, title, tag].join(" ")
+    "(UNSIZED) #{parser.text.strip} {tag???}"
   end
 
 end; end
+
