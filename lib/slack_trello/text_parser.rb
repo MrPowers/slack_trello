@@ -12,6 +12,10 @@ module SlackTrello; module TextParser
     !!matched_text
   end
 
+  def num_args
+    args.length
+  end
+
   private
 
   def regex

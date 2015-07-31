@@ -11,6 +11,7 @@ module SlackTrello; class CreateCardCommand
 
   def run
     return help_message unless valid_text_format?
+    return help_message unless num_args == 2
     return board_not_found_message unless trello_card_creator.trello_board
     return list_not_found_message unless trello_card_creator.trello_list
 
