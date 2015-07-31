@@ -10,6 +10,7 @@ module SlackTrello; class CreateCardCommand
   end
 
   def run
+    return help_message unless valid_text_format?
     return board_not_found_message unless trello_card_creator.trello_board
     return list_not_found_message unless trello_card_creator.trello_list
 
@@ -19,6 +20,15 @@ module SlackTrello; class CreateCardCommand
   end
 
   private
+
+  def help_message
+%{:cry: Invalid format
+Your message: #{text}
+Example: /card (trello_board trello_list) card title
+If the Trello board/list has spaces, replace them with underscores
+For example, Some Board Name => some_board_name
+}
+  end
 
   def speaker
     args = {
@@ -63,7 +73,7 @@ module SlackTrello; class CreateCardCommand
   end
 
   def card_title
-    parser.text.strip
+    text_message
   end
 
   def text

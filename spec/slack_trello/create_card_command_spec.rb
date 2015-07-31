@@ -18,6 +18,23 @@ module SlackTrello; describe CreateCardCommand do
   end
 
   context "#run" do
+    it "returns a help message if the format is invalid" do
+      args = {
+        "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
+        "team_id" => "T0001",
+        "team_domain" => "example",
+        "channel_id" => "C2147483705",
+        "channel_name" => "test",
+        "user_id" => "U2147483697",
+        "user_name" => "Steve",
+        "command" => "/create_card",
+        "text" => "some_board some_list some stuff blah"
+      }
+      invalid_card = CreateCardCommand.new(args, "webhook url")
+      help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
+      expect(invalid_card.run).to eq help_message
+    end
+
     it "runs the code" do
       trello_card_creator = double
       expect(create_card).to receive(:trello_card_creator).twice.and_return(trello_card_creator)
@@ -43,6 +60,12 @@ module SlackTrello; describe CreateCardCommand do
   context "#trello_list_name" do
     it "returns the trello list name" do
       expect(create_card.send(:trello_list_name)).to eq "some_list"
+    end
+  end
+
+  context "#card_title" do
+    it "returns the text in the Trello card name" do
+      expect(create_card.send(:card_title)).to eq "some stuff blah"
     end
   end
 
