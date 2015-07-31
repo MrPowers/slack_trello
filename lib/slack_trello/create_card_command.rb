@@ -1,4 +1,6 @@
-module SlackTrello; class WorkCommand
+module SlackTrello; class CreateCardCommand
+
+  include TextParser
 
   attr_reader :parser, :webhook_url
 
@@ -41,11 +43,11 @@ module SlackTrello; class WorkCommand
   end
 
   def trello_board_name
-    "#{parser.channel_name.titleize} Backlog"
+    args[0]
   end
 
   def trello_list_name
-    'From Chat'
+    args[1]
   end
 
   def board_not_found_message
@@ -57,11 +59,15 @@ module SlackTrello; class WorkCommand
   end
 
   def success_message
-    ":trello: [#{parser.user_name}] has created a new work card: <#{trello_card.short_url}|#{parser.text.strip}>"
+    ":trello: [#{parser.user_name}] has created a new trello card: <#{trello_card.short_url}|#{parser.text.strip}>"
   end
 
   def card_title
-    "(UNSIZED) #{parser.text.strip} {tag???}"
+    parser.text.strip
+  end
+
+  def text
+    parser.text
   end
 
 end; end
