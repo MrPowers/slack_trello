@@ -52,7 +52,7 @@ module SlackTrello; describe CreateCardCommand do
       expect(invalid_card.run).to eq help_message
     end
 
-    it "returns a help message if the text is blank" do
+    it "returns a help message if only one argument is supplied" do
       args = {
         "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
         "team_id" => "T0001",

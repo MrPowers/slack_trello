@@ -62,11 +62,11 @@ For example, Some Board Name => some_board_name
   end
 
   def board_not_found_message
-    "A Trello board named '#{trello_board_name}' must be created and the Trello user in the codebase must be added to the board for the work command to function for this Slack room."
+    "A Trello board named '#{trello_board_name}' must be created and the Trello user in the codebase must be added to the board for this command to function for this Slack room."
   end
 
   def list_not_found_message
-    "A Trello list named #{trello_list_name} must be added to the '#{trello_board_name}' board for the work command to function."
+    "A Trello list named #{trello_list_name} must be added to the '#{trello_board_name}' board for this command to function."
   end
 
   def success_message
