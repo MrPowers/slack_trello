@@ -12,6 +12,7 @@ require "slack_trello/speaker"
 
 require "slack_trello/create_card_command"
 require "slack_trello/work_command"
+require "slack_trello/retro_command"
 
 module SlackTrello
 end
