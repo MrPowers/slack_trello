@@ -71,7 +71,7 @@ For example, Some List Name => some_list_name
   end
 
   def success_message
-    ":trello: [#{parser.user_name}] has created a new trello card: <#{trello_card.short_url}|#{parser.text.strip}>"
+    ":mega: [#{parser.user_name}] has created a new trello card: <#{trello_card.short_url}|#{parser.text.strip}>"
   end
 
   def card_title

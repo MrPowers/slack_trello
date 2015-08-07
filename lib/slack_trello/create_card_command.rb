@@ -70,7 +70,7 @@ For example, Some Board Name => some_board_name
   end
 
   def success_message
-    ":trello: [#{parser.user_name}] has created a new trello card: <#{trello_card.short_url}|#{parser.text.strip}>"
+    ":mega: [#{parser.user_name}] has created a new trello card: <#{trello_card.short_url}|#{parser.text.strip}>"
   end
 
   def card_title

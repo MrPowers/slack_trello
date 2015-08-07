@@ -15,7 +15,7 @@ module SlackTrello; describe Speaker do
     it "speaks a message in the Slack room" do
       session = double
       expect(speaker).to receive(:session).and_return session
-      expect(session).to receive(:ping).with("blah blah", icon_emoji: ":mdb:")
+      expect(session).to receive(:ping).with("blah blah", icon_emoji: ":ghost:")
       speaker.speak("blah blah")
     end
   end

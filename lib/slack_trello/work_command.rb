@@ -57,7 +57,7 @@ module SlackTrello; class WorkCommand
   end
 
   def success_message
-    ":trello: [#{parser.user_name}] has created a new work card: <#{trello_card.short_url}|#{parser.text.strip}>"
+    ":mega: [#{parser.user_name}] has created a new work card: <#{trello_card.short_url}|#{parser.text.strip}>"
   end
 
   def card_title

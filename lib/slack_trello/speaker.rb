@@ -7,7 +7,7 @@ module SlackTrello; class Speaker
   end
 
   def speak(msg)
-    session.ping msg, icon_emoji: ":mdb:"
+    session.ping msg, icon_emoji: ":ghost:"
   end
 
   private
