@@ -16,11 +16,33 @@ module SlackTrello; describe TextParser do
     it "returns the arguments" do
       expect(dummy.args).to eq ["well"]
     end
+
+    it "works when the text format is invalid" do
+      stupid_dummy = (Class.new do
+        include TextParser
+
+        def text
+          "not valid"
+        end
+      end).new
+      expect(stupid_dummy.args).to eq ""
+    end
   end
 
   context "#text_message" do
     it "returns the message" do
       expect(dummy.text_message).to eq "This went swimmingly"
+    end
+
+    it "works when the text format is invalid" do
+      stupid_dummy = (Class.new do
+        include TextParser
+
+        def text
+          "not valid"
+        end
+      end).new
+      expect(stupid_dummy.text_message).to eq ""
     end
   end
 

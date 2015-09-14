@@ -18,7 +18,7 @@ module SlackTrello; class CreateTrelloCard
 
   def trello_board
     @trello_board ||= Trello::Board.all.find do |b|
-      spaceify(b.name) == spaceify(board_name)
+      spaceify(b.name) == spaceify(board_name) && b.closed == false
     end
   end
 

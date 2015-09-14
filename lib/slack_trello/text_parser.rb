@@ -1,10 +1,12 @@
 module SlackTrello; module TextParser
 
   def args
+    return "" unless valid_text_format?
     matched_text[1].strip.split(" ")
   end
 
   def text_message
+    return "" unless valid_text_format?
     matched_text[2].strip
   end
 
