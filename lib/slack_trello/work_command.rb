@@ -36,7 +36,7 @@ module SlackTrello; class WorkCommand
   end
 
   def trello_card
-    trello_card_creator.first_or_create
+    @card ||= trello_card_creator.first_or_create
   end
 
   def trello_board_name

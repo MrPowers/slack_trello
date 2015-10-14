@@ -10,6 +10,7 @@ require "slack_trello/create_trello_card"
 require "slack_trello/copy_cards"
 require "slack_trello/speaker"
 
+require "slack_trello/copy_cards_command"
 require "slack_trello/create_card_command"
 require "slack_trello/work_command"
 require "slack_trello/retro_command"

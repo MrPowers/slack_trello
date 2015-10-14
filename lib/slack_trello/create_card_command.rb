@@ -49,7 +49,7 @@ For example, Some Board Name => some_board_name
   end
 
   def trello_card
-    trello_card_creator.first_or_create
+    @card ||= trello_card_creator.first_or_create
   end
 
   def trello_board_name
