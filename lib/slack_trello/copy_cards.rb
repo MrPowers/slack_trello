@@ -11,7 +11,7 @@ module SlackTrello; class CopyCards
 
   def run
     source_cards.each do |source_card|
-      creator = CreateTrelloCard.new(destination_board, destination_list, source_card.name)
+      creator = CreateTrelloCard.new(board_name: destination_board, list_name: destination_list, card_name: source_card.name)
       creator.card
     end
   end
