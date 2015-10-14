@@ -8,12 +8,17 @@ module SlackTrello; class CreateTrelloCard
     @card_name = args.fetch(:card_name)
   end
 
-  def card
-    return @card if @card
-    @card = Trello::Card.new
-    @card.name = card_name
-    @card.list_id = trello_list.id
-    @card.save
+  def first_or_create
+    card = TrelloLookup.new(board_name, list_name, card_name)
+    return card if card
+    create_card
+  end
+
+  def create_card
+    card = Trello::Card.new
+    card.name = card_name
+    card.list_id = trello_list.id
+    card.save
   end
 
   def trello_list
