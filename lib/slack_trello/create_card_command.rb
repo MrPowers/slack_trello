@@ -12,7 +12,6 @@ module SlackTrello; class CreateCardCommand
   def run
     return help_message unless valid_text_format?
     return help_message unless num_args == 2
-    return board_not_found_message unless trello_card_creator.trello_board
     return list_not_found_message unless trello_card_creator.trello_list
 
     trello_card
@@ -50,7 +49,7 @@ For example, Some Board Name => some_board_name
   end
 
   def trello_card
-    trello_card_creator.card
+    trello_card_creator.first_or_create
   end
 
   def trello_board_name
@@ -59,10 +58,6 @@ For example, Some Board Name => some_board_name
 
   def trello_list_name
     args[1]
-  end
-
-  def board_not_found_message
-    "A Trello board named '#{trello_board_name}' must be created and the Trello user in the codebase must be added to the board for this command to function for this Slack room."
   end
 
   def list_not_found_message

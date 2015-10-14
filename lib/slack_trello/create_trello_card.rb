@@ -9,7 +9,7 @@ module SlackTrello; class CreateTrelloCard
   end
 
   def first_or_create
-    card = TrelloLookup.new(board_name, list_name, card_name)
+    card = TrelloLookup.card(board_name, list_name, card_name)
     return card if card
     create_card
   end

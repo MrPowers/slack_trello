@@ -8,7 +8,6 @@ module SlackTrello; class WorkCommand
   end
 
   def run
-    return board_not_found_message unless trello_card_creator.trello_board
     return list_not_found_message unless trello_card_creator.trello_list
 
     trello_card
@@ -37,7 +36,7 @@ module SlackTrello; class WorkCommand
   end
 
   def trello_card
-    trello_card_creator.card
+    trello_card_creator.first_or_create
   end
 
   def trello_board_name
@@ -46,10 +45,6 @@ module SlackTrello; class WorkCommand
 
   def trello_list_name
     'From Chat'
-  end
-
-  def board_not_found_message
-    "A Trello board named '#{trello_board_name}' must be created and the Trello user in the codebase must be added to the board for the work command to function for this Slack room."
   end
 
   def list_not_found_message
