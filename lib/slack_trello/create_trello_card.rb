@@ -16,22 +16,8 @@ module SlackTrello; class CreateTrelloCard
     @card.save
   end
 
-  def trello_board
-    @trello_board ||= Trello::Board.all.find do |b|
-      spaceify(b.name) == spaceify(board_name) && b.closed == false
-    end
-  end
-
   def trello_list
-    @trello_list ||= trello_board.lists.find do |l|
-      spaceify(l.name) == spaceify(list_name)
-    end
-  end
-
-  private
-
-  def spaceify(str)
-    str.gsub(/-|_/, " ").downcase
+    TrelloLookup.list(board_name, list_name)
   end
 
 end; end

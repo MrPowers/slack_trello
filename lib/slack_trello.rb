@@ -2,6 +2,7 @@ require "active_support/core_ext/string"
 require "slack-notifier"
 
 require "slack_trello/version"
+require "slack_trello/trello_lookup"
 require "slack_trello/text_parser"
 require "slack_trello/response_parser"
 
