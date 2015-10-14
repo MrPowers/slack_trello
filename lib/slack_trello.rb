@@ -7,6 +7,7 @@ require "slack_trello/text_parser"
 require "slack_trello/response_parser"
 
 require "slack_trello/create_trello_card"
+require "slack_trello/copy_cards"
 require "slack_trello/speaker"
 
 require "slack_trello/create_card_command"
