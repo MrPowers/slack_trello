@@ -1,9 +1,9 @@
 module SlackTrello; module Commands; class Work
 
-  attr_reader :parser, :webhook_url
+  attr_reader :slack_post_response, :webhook_url
 
-  def initialize(args, webhook_url)
-    @parser = SlackTrello::SlackHelpers::ResponseParser.new(args)
+  def initialize(slack_post_args, webhook_url)
+    @slack_post_response = OpenStruct.new(slack_post_args)
     @webhook_url = webhook_url
   end
 
@@ -20,8 +20,8 @@ module SlackTrello; module Commands; class Work
   def speaker
     args = {
       webhook_url: webhook_url,
-      channel: parser.channel_name,
-      username: parser.user_name
+      channel: slack_post_response.channel_name,
+      username: slack_post_response.user_name
     }
     SlackTrello::SlackHelpers::Speaker.new(args)
   end
@@ -40,7 +40,7 @@ module SlackTrello; module Commands; class Work
   end
 
   def trello_board_name
-    "#{parser.channel_name.titleize} Backlog"
+    "#{slack_post_response.channel_name.titleize} Backlog"
   end
 
   def trello_list_name
@@ -52,11 +52,11 @@ module SlackTrello; module Commands; class Work
   end
 
   def success_message
-    ":mega: [#{parser.user_name}] has created a new work card: <#{trello_card.short_url}|#{parser.text.strip}>"
+    ":mega: [#{slack_post_response.user_name}] has created a new work card: <#{trello_card.short_url}|#{slack_post_response.text.strip}>"
   end
 
   def card_title
-    "(UNSIZED) #{parser.text.strip} {tag???}"
+    "(UNSIZED) #{slack_post_response.text.strip} {tag???}"
   end
 
 end; end; end

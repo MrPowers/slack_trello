@@ -2,10 +2,10 @@ module SlackTrello; module Commands; class CopyCards
 
   include SlackTrello::SlackHelpers::TextParser
 
-  attr_reader :parser, :webhook_url
+  attr_reader :slack_post_response, :webhook_url
 
-  def initialize(args, webhook_url)
-    @parser = SlackTrello::SlackHelpers::ResponseParser.new(args)
+  def initialize(slack_post_args, webhook_url)
+    @slack_post_response = OpenStruct.new(slack_post_args)
     @webhook_url = webhook_url
   end
 
@@ -22,7 +22,7 @@ module SlackTrello; module Commands; class CopyCards
 
   def help_message
 %{:cry: Invalid format
-Your message: #{parser.text}
+Your message: #{slack_post_response.text}
 Example: /copy_cards (source_board, source_list, destination_board, destination_list)
 }
   end
@@ -30,8 +30,8 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
   def speaker
     args = {
       webhook_url: webhook_url,
-      channel: parser.channel_name,
-      username: parser.user_name
+      channel: slack_post_response.channel_name,
+      username: slack_post_response.user_name
     }
     SlackTrello::SlackHelpers::Speaker.new(args)
   end
@@ -63,11 +63,11 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
   end
 
   def success_message
-    ":mega: [#{parser.user_name}] has copied all the cards from the #{source_list_name} of the #{source_board_name} to the #{destination_list_name} of the #{destination_board_name}"
+    ":mega: [#{slack_post_response.user_name}] has copied all the cards from the #{source_list_name} of the #{source_board_name} to the #{destination_list_name} of the #{destination_board_name}"
   end
 
   def text
-    parser.text
+    slack_post_response.text
   end
 
 end; end; end
