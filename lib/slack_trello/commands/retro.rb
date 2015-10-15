@@ -73,10 +73,6 @@ For example, Some List Name => some_list_name
     "#{text_message} -- #{slack_post_response.user_name}"
   end
 
-  def text
-    slack_post_response.text
-  end
-
   def list_names
     trello_card_creator.trello_board.lists.map do |list|
       list.name.parameterize.underscore

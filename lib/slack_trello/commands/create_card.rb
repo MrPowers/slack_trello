@@ -72,9 +72,5 @@ For example, Some Board Name => some_board_name
     text_message
   end
 
-  def text
-    slack_post_response.text
-  end
-
 end; end; end
 

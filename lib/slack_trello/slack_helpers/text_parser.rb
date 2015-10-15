@@ -28,5 +28,9 @@ module SlackTrello; module SlackHelpers; module TextParser
     text.match(regex)
   end
 
+  def text
+    slack_post_response.text
+  end
+
 end; end; end
 
