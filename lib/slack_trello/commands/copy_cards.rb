@@ -66,5 +66,9 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
     ":mega: [#{parser.user_name}] has copied all the cards from the #{source_list_name} of the #{source_board_name} to the #{destination_list_name} of the #{destination_board_name}"
   end
 
+  def text
+    parser.text
+  end
+
 end; end; end
 
