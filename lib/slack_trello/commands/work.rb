@@ -1,9 +1,9 @@
-module SlackTrello; class WorkCommand
+module SlackTrello; module Commands; class Work
 
   attr_reader :parser, :webhook_url
 
   def initialize(args, webhook_url)
-    @parser = ResponseParser.new(args)
+    @parser = SlackTrello::SlackHelpers::ResponseParser.new(args)
     @webhook_url = webhook_url
   end
 
@@ -23,7 +23,7 @@ module SlackTrello; class WorkCommand
       channel: parser.channel_name,
       username: parser.user_name
     }
-    Speaker.new(args)
+    SlackTrello::SlackHelpers::Speaker.new(args)
   end
 
   def trello_card_creator
@@ -32,7 +32,7 @@ module SlackTrello; class WorkCommand
       list_name: trello_list_name,
       card_name: card_title
     }
-    @trello_card_creator ||= CreateTrelloCard.new(args)
+    @trello_card_creator ||= SlackTrello::TrelloHelpers::CreateCard.new(args)
   end
 
   def trello_card
@@ -59,5 +59,5 @@ module SlackTrello; class WorkCommand
     "(UNSIZED) #{parser.text.strip} {tag???}"
   end
 
-end; end
+end; end; end
 

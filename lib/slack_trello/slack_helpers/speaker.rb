@@ -1,4 +1,4 @@
-module SlackTrello; class Speaker
+module SlackTrello; module SlackHelpers; class Speaker
 
   def initialize(args)
     @webhook_url = args.fetch(:webhook_url)
@@ -20,4 +20,5 @@ module SlackTrello; class Speaker
     @channel.start_with?("#") ? @channel : "##{@channel}"
   end
 
-end; end
+end; end; end
+

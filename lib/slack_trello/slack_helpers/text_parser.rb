@@ -1,4 +1,4 @@
-module SlackTrello; module TextParser
+module SlackTrello; module SlackHelpers; module TextParser
 
   def args
     return "" unless valid_text_format?
@@ -28,6 +28,5 @@ module SlackTrello; module TextParser
     text.match(regex)
   end
 
-end; end
-
+end; end; end
 

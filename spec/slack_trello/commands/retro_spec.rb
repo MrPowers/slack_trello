@@ -1,29 +1,23 @@
 require 'spec_helper'
 
-module SlackTrello; describe RetroCommand do
+module SlackTrello; module Commands; describe Retro do
 
   let(:post_args) do
-    {
-      "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-      "team_id" => "T0001",
-      "team_domain" => "example",
-      "channel_id" => "C2147483705",
-      "channel_name" => "test",
-      "user_id" => "U2147483697",
-      "user_name" => "Steve",
+    custom_args = {
       "command" => "/retro",
       "text" => "(some_list) some stuff blah"
     }
+    slack_args.merge(custom_args)
   end
 
   let(:retro) do
-    RetroCommand.new(post_args, "webhook url")
+    Retro.new(post_args, "webhook url")
   end
 
   context "#run" do
     it "returns a help message if the format is invalid" do
       args = post_args.merge({"text" => "some_board some_list some stuff blah"})
-      invalid_card = RetroCommand.new(args, "webhook url")
+      invalid_card = Retro.new(args, "webhook url")
       expect(invalid_card).to receive(:list_names).and_return([])
       help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /card (trello_list) card title\nAvailable list names: \nIf the Trello list has spaces, replace them with underscores\nFor example, Some List Name => some_list_name\n"
       expect(invalid_card.run).to eq help_message
@@ -31,7 +25,7 @@ module SlackTrello; describe RetroCommand do
 
     it "returns a help message if the text is blank" do
       args = post_args.merge({"text" => ""})
-      invalid_card = RetroCommand.new(args, "webhook url")
+      invalid_card = Retro.new(args, "webhook url")
       expect(invalid_card).to receive(:list_names).and_return([])
       help_message = ":cry: Invalid format\nYour message: \nExample: /card (trello_list) card title\nAvailable list names: \nIf the Trello list has spaces, replace them with underscores\nFor example, Some List Name => some_list_name\n"
       expect(invalid_card.run).to eq help_message
@@ -39,7 +33,7 @@ module SlackTrello; describe RetroCommand do
 
     it "returns a help message if an argument is not supplied" do
       args = post_args.merge({"text" => "() something"})
-      invalid_card = RetroCommand.new(args, "webhook url")
+      invalid_card = Retro.new(args, "webhook url")
       expect(invalid_card).to receive(:list_names).and_return([])
       help_message = ":cry: Invalid format\nYour message: () something\nExample: /card (trello_list) card title\nAvailable list names: \nIf the Trello list has spaces, replace them with underscores\nFor example, Some List Name => some_list_name\n"
       expect(invalid_card.run).to eq help_message
@@ -47,8 +41,7 @@ module SlackTrello; describe RetroCommand do
 
     it "runs the code" do
       trello_card_creator = double
-      expect(retro).to receive(:trello_card_creator).twice.and_return(trello_card_creator)
-      expect(trello_card_creator).to receive(:trello_board).and_return true
+      expect(retro).to receive(:trello_card_creator).and_return(trello_card_creator)
       expect(trello_card_creator).to receive(:trello_list).and_return true
 
       expect(retro).to receive(:trello_card)
@@ -79,5 +72,5 @@ module SlackTrello; describe RetroCommand do
     end
   end
 
-end; end
+end; end; end
 

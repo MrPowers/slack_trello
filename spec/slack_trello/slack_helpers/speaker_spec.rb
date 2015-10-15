@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module SlackTrello; describe Speaker do
+module SlackTrello; module SlackHelpers; describe Speaker do
 
   let(:speaker) do
     args = {
@@ -43,5 +43,5 @@ module SlackTrello; describe Speaker do
     end
   end
 
-end; end
+end; end; end
 

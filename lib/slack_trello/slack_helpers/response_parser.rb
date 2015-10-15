@@ -1,4 +1,4 @@
-module SlackTrello; class ResponseParser
+module SlackTrello; module SlackHelpers; class ResponseParser
 
   attr_reader :args
 
@@ -11,4 +11,5 @@ module SlackTrello; class ResponseParser
     args.fetch(name.to_s)
   end
 
-end; end
+end; end; end
+

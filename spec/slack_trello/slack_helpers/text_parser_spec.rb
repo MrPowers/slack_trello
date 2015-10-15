@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module SlackTrello; describe TextParser do
+module SlackTrello; module SlackHelpers; describe TextParser do
 
   let(:dummy) do
     (Class.new do
@@ -63,5 +63,5 @@ module SlackTrello; describe TextParser do
     end
   end
 
-end; end
+end; end; end
 

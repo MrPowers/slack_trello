@@ -1,11 +1,11 @@
-module SlackTrello; class CopyCardsCommand
+module SlackTrello; module Commands; class CopyCards
 
-  include TextParser
+  include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :parser, :webhook_url
 
   def initialize(args, webhook_url)
-    @parser = ResponseParser.new(args)
+    @parser = SlackTrello::SlackHelpers::ResponseParser.new(args)
     @webhook_url = webhook_url
   end
 
@@ -33,7 +33,7 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
       channel: parser.channel_name,
       username: parser.user_name
     }
-    Speaker.new(args)
+    SlackTrello::SlackHelpers::Speaker.new(args)
   end
 
   def card_copier
@@ -66,5 +66,5 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
     ":mega: [#{parser.user_name}] has copied all the cards from the #{source_list_name} of the #{source_board_name} to the #{destination_list_name} of the #{destination_board_name}"
   end
 
-end; end
+end; end; end
 

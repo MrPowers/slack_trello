@@ -1,78 +1,49 @@
 require 'spec_helper'
 
-module SlackTrello; describe CreateCardCommand do
+module SlackTrello; module Commands; describe CreateCard do
 
   let(:create_card) do
-    args = {
-      "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-      "team_id" => "T0001",
-      "team_domain" => "example",
-      "channel_id" => "C2147483705",
-      "channel_name" => "test",
-      "user_id" => "U2147483697",
-      "user_name" => "Steve",
+    custom_args = {
       "command" => "/create_card",
       "text" => "(some_board some_list) some stuff blah"
     }
-    CreateCardCommand.new(args, "webhook url")
+    CreateCard.new(slack_args.merge(custom_args), "webhook url")
   end
 
   context "#run" do
     it "returns a help message if the format is invalid" do
-      args = {
-        "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-        "team_id" => "T0001",
-        "team_domain" => "example",
-        "channel_id" => "C2147483705",
-        "channel_name" => "test",
-        "user_id" => "U2147483697",
-        "user_name" => "Steve",
+      custom_args = {
         "command" => "/create_card",
         "text" => "some_board some_list some stuff blah"
       }
-      invalid_card = CreateCardCommand.new(args, "webhook url")
+      invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
       help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "returns a help message if the text is blank" do
-      args = {
-        "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-        "team_id" => "T0001",
-        "team_domain" => "example",
-        "channel_id" => "C2147483705",
-        "channel_name" => "test",
-        "user_id" => "U2147483697",
-        "user_name" => "Steve",
+      custom_args = {
         "command" => "/create_card",
         "text" => ""
       }
-      invalid_card = CreateCardCommand.new(args, "webhook url")
+      invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
       help_message = ":cry: Invalid format\nYour message: \nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "returns a help message if only one argument is supplied" do
-      args = {
-        "token" => "gIkuvaNzQIHg97ATvDxqgjtO",
-        "team_id" => "T0001",
-        "team_domain" => "example",
-        "channel_id" => "C2147483705",
-        "channel_name" => "test",
-        "user_id" => "U2147483697",
-        "user_name" => "Steve",
+      custom_args = {
         "command" => "/create_card",
         "text" => "(trello_board) something"
       }
-      invalid_card = CreateCardCommand.new(args, "webhook url")
+      invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
       help_message = ":cry: Invalid format\nYour message: (trello_board) something\nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "runs the code" do
       trello_card_creator = double
-      expect(create_card).to receive(:trello_card_creator).twice.and_return(trello_card_creator)
-      expect(trello_card_creator).to receive(:trello_board).and_return true
+      expect(create_card).to receive(:trello_card_creator).and_return(trello_card_creator)
       expect(trello_card_creator).to receive(:trello_list).and_return true
 
       expect(create_card).to receive(:trello_card)
@@ -103,5 +74,5 @@ module SlackTrello; describe CreateCardCommand do
     end
   end
 
-end; end
+end; end; end
 

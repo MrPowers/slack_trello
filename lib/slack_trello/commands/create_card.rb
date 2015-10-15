@@ -1,17 +1,17 @@
-module SlackTrello; class RetroCommand
+module SlackTrello; module Commands; class CreateCard
 
-  include TextParser
+  include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :parser, :webhook_url
 
   def initialize(args, webhook_url)
-    @parser = ResponseParser.new(args)
+    @parser = SlackTrello::SlackHelpers::ResponseParser.new(args)
     @webhook_url = webhook_url
   end
 
   def run
     return help_message unless valid_text_format?
-    return help_message unless num_args == 1
+    return help_message unless num_args == 2
     return list_not_found_message unless trello_card_creator.trello_list
 
     trello_card
@@ -24,10 +24,9 @@ module SlackTrello; class RetroCommand
   def help_message
 %{:cry: Invalid format
 Your message: #{text}
-Example: /card (trello_list) card title
-Available list names: #{list_names.join(", ")}
-If the Trello list has spaces, replace them with underscores
-For example, Some List Name => some_list_name
+Example: /card (trello_board trello_list) card title
+If the Trello board/list has spaces, replace them with underscores
+For example, Some Board Name => some_board_name
 }
   end
 
@@ -37,7 +36,7 @@ For example, Some List Name => some_list_name
       channel: parser.channel_name,
       username: parser.user_name
     }
-    Speaker.new(args)
+    SlackTrello::SlackHelpers::Speaker.new(args)
   end
 
   def trello_card_creator
@@ -46,7 +45,7 @@ For example, Some List Name => some_list_name
       list_name: trello_list_name,
       card_name: card_title
     }
-    @trello_card_creator ||= CreateTrelloCard.new(args)
+    @trello_card_creator ||= SlackTrello::TrelloHelpers::CreateCard.new(args)
   end
 
   def trello_card
@@ -54,11 +53,11 @@ For example, Some List Name => some_list_name
   end
 
   def trello_board_name
-    "#{parser.channel_name.titleize} Retro"
+    args[0]
   end
 
   def trello_list_name
-    args[0]
+    args[1]
   end
 
   def list_not_found_message
@@ -70,18 +69,12 @@ For example, Some List Name => some_list_name
   end
 
   def card_title
-    "#{text_message} -- #{parser.user_name}"
+    text_message
   end
 
   def text
     parser.text
   end
 
-  def list_names
-    trello_card_creator.trello_board.lists.map do |list|
-      list.name.parameterize.underscore
-    end
-  end
-
-end; end
+end; end; end
 

@@ -1,4 +1,4 @@
-module SlackTrello; class CopyCards
+module SlackTrello; module TrelloHelpers; class CopyCards
 
   attr_reader :source_board, :source_list, :destination_board, :destination_list
 
@@ -11,16 +11,15 @@ module SlackTrello; class CopyCards
 
   def run
     source_cards.each do |source_card|
-      creator = CreateTrelloCard.new(board_name: destination_board, list_name: destination_list, card_name: source_card.name)
+      creator = CreateCard.new(board_name: destination_board, list_name: destination_list, card_name: source_card.name)
       creator.first_or_create
     end
   end
 
   def source_cards
-    l = TrelloLookup.list(source_board, source_list)
+    l = Lookup.list(source_board, source_list)
     l.cards
   end
 
-end; end
-
+end; end; end
 

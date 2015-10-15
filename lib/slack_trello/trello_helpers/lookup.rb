@@ -1,4 +1,4 @@
-module SlackTrello; class TrelloLookup
+module SlackTrello; module TrelloHelpers; class Lookup
 
   class << self
 
@@ -28,5 +28,5 @@ module SlackTrello; class TrelloLookup
 
   end
 
-end; end
+end; end; end
 

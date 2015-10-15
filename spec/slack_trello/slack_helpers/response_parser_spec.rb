@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-module SlackTrello; describe ResponseParser do
+module SlackTrello; module SlackHelpers; describe ResponseParser do
 
   let(:parser) do
     args = {
@@ -37,4 +37,5 @@ module SlackTrello; describe ResponseParser do
     end
   end
 
-end; end
+end; end; end
+

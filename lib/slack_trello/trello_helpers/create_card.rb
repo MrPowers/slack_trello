@@ -1,4 +1,4 @@
-module SlackTrello; class CreateTrelloCard
+module SlackTrello; module TrelloHelpers; class CreateCard
 
   attr_reader :board_name, :list_name, :card_name
 
@@ -9,7 +9,7 @@ module SlackTrello; class CreateTrelloCard
   end
 
   def first_or_create
-    card = TrelloLookup.card(board_name, list_name, card_name)
+    card = Lookup.card(board_name, list_name, card_name)
     return card if card
     create_card
   end
@@ -22,8 +22,8 @@ module SlackTrello; class CreateTrelloCard
   end
 
   def trello_list
-    TrelloLookup.list(board_name, list_name)
+    Lookup.list(board_name, list_name)
   end
 
-end; end
+end; end; end
 

@@ -2,18 +2,15 @@ require "active_support/core_ext/string"
 require "slack-notifier"
 
 require "slack_trello/version"
-require "slack_trello/trello_lookup"
-require "slack_trello/text_parser"
-require "slack_trello/response_parser"
 
-require "slack_trello/create_trello_card"
-require "slack_trello/copy_cards"
-require "slack_trello/speaker"
+def require_all(pattern)
+  root = File.expand_path("../", File.dirname(__FILE__))
+  Dir.glob("#{root}/#{pattern}/**/*.rb").sort.each { |path| require path }
+end
 
-require "slack_trello/copy_cards_command"
-require "slack_trello/create_card_command"
-require "slack_trello/work_command"
-require "slack_trello/retro_command"
+require_all("lib/slack_trello/slack_helpers")
+require_all("lib/slack_trello/trello_helpers")
+require_all("lib/slack_trello/commands")
 
 module SlackTrello
 end
