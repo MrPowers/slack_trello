@@ -23,6 +23,14 @@ module SlackTrello; module Commands; describe Retro do
       expect(invalid_card.run).to eq help_message
     end
 
+    it "returns a help message if the text equals the string help" do
+      args = post_args.merge({"text" => "help"})
+      invalid_card = Retro.new(args, "webhook url")
+      expect(invalid_card).to receive(:list_names).and_return([])
+      help_message = ":cry: Invalid format\nYour message: help\nExample: /card (trello_list) card title\nAvailable list names: \nIf the Trello list has spaces, replace them with underscores\nFor example, Some List Name => some_list_name\n"
+      expect(invalid_card.run).to eq help_message
+    end
+
     it "returns a help message if the text is blank" do
       args = post_args.merge({"text" => ""})
       invalid_card = Retro.new(args, "webhook url")

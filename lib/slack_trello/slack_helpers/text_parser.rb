@@ -18,8 +18,6 @@ module SlackTrello; module SlackHelpers; module TextParser
     args.length
   end
 
-  private
-
   def regex
     /\((.+?)\)(.+)?/
   end
