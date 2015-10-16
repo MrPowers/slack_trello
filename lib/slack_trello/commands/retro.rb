@@ -74,7 +74,8 @@ For example, Some List Name => some_list_name
   end
 
   def list_names
-    trello_card_creator.trello_board.lists.map do |list|
+    board = SlackTrello::TrelloHelpers::Lookup.board(trello_board_name)
+    board.lists.map do |list|
       list.name.parameterize.underscore
     end
   end
