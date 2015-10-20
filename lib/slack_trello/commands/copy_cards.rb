@@ -38,12 +38,12 @@ Example: /copy_cards (source_board, source_list, destination_board, destination_
 
   def card_copier
     args = {
-      source_board_name: source_board_name,
-      source_list_name: source_list_name,
-      destination_board_name: destination_board_name,
-      destination_list_name: destination_list_name
+      source_board: source_board_name,
+      source_list: source_list_name,
+      destination_board: destination_board_name,
+      destination_list: destination_list_name
     }
-    @card_copier ||= CardCopier.new(args)
+    @card_copier ||= SlackTrello::TrelloHelpers::CopyCards.new(args)
   end
 
   def source_board_name

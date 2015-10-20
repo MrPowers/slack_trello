@@ -2,11 +2,11 @@ module SlackTrello; module TrelloHelpers; class CopyCards
 
   attr_reader :source_board, :source_list, :destination_board, :destination_list
 
-  def initialize(source_board, source_list, destination_board, destination_list)
-    @source_board = source_board
-    @source_list = source_list
-    @destination_board = destination_board
-    @destination_list = destination_list
+  def initialize(args)
+    @source_board = args.fetch(:source_board)
+    @source_list = args.fetch(:source_list)
+    @destination_board = args.fetch(:destination_board)
+    @destination_list = args.fetch(:destination_list)
   end
 
   def run

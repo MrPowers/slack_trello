@@ -89,5 +89,11 @@ module SlackTrello; module Commands; describe CopyCards do
     end
   end
 
+  context "#copy_cards" do
+    it "instantiates a TrelloHelpers::CopyCards object" do
+      expect(copy_cards.send(:card_copier)).to be_a(SlackTrello::TrelloHelpers::CopyCards)
+    end
+  end
+
 end; end; end
 
