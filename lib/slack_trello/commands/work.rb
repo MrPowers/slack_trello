@@ -30,7 +30,8 @@ module SlackTrello; module Commands; class Work
     args = {
       board_name: trello_board_name,
       list_name: trello_list_name,
-      card_name: card_title
+      card_name: card_title,
+      card_desc: card_desc
     }
     @trello_card_creator ||= SlackTrello::TrelloHelpers::CreateCard.new(args)
   end
@@ -57,6 +58,33 @@ module SlackTrello; module Commands; class Work
 
   def card_title
     "(UNSIZED) #{slack_post_response.text.strip} {tag???}"
+  end
+
+  def card_desc
+%q{Value Proposition
+------------
+
+As a **<type of user>**, I want **<some goal>** so that **<some reason>**.
+
+
+------------------
+
+Acceptance Criteria
+--------------------
+
+I will consider value delivered when **<describe here in plain language> AND the Acceptance Criteria Checklist below has been met**.
+
+---------------
+
+*** << Link to Product Card (if appropriate) >>> ***
+
+---------------
+
+*** <<< Link to Any Epic Cards (if appropriate) >>> ***
+
+---------------
+
+*** <<< ATTACH ANY SUPPORT DOCUMENTS AND INFORMATION HERE >>> ***}
   end
 
 end; end; end

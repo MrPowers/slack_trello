@@ -1,11 +1,12 @@
 module SlackTrello; module TrelloHelpers; class CreateCard
 
-  attr_reader :board_name, :list_name, :card_name
+  attr_reader :board_name, :list_name, :card_name, :card_desc
 
   def initialize(args)
     @board_name = args.fetch(:board_name)
     @list_name = args.fetch(:list_name)
     @card_name = args.fetch(:card_name)
+    @card_desc = args.fetch(:card_desc, nil)
   end
 
   def first_or_create
@@ -18,6 +19,7 @@ module SlackTrello; module TrelloHelpers; class CreateCard
     card = Trello::Card.new
     card.name = card_name
     card.list_id = trello_list.id
+    card.desc = card_desc
     card.save
   end
 

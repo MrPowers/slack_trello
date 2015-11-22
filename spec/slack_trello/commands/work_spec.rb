@@ -26,5 +26,12 @@ module SlackTrello; module Commands; describe Work do
     end
   end
 
+  context "card_desc" do
+    it "returns the boilerplate card description" do
+      expected = "Value Proposition\n------------\n\nAs a **<type of user>**, I want **<some goal>** so that **<some reason>**.\n\n\n------------------\n\nAcceptance Criteria\n--------------------\n\nI will consider value delivered when **<describe here in plain language> AND the Acceptance Criteria Checklist below has been met**.\n\n---------------\n\n*** << Link to Product Card (if appropriate) >>> ***\n\n---------------\n\n*** <<< Link to Any Epic Cards (if appropriate) >>> ***\n\n---------------\n\n*** <<< ATTACH ANY SUPPORT DOCUMENTS AND INFORMATION HERE >>> ***"
+      expect(work.send(:card_desc)).to eq expected
+    end
+  end
+
 end; end; end
 
