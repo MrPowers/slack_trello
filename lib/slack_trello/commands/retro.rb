@@ -24,10 +24,8 @@ module SlackTrello; module Commands; class Retro
   def help_message
 %{:cry: Invalid format
 Your message: #{text}
-Example: /card (trello_list) card title
+Example: /retro (#{list_names.first}) blah blah blah
 Available list names: #{list_names.join(", ")}
-If the Trello list has spaces, replace them with underscores
-For example, Some List Name => some_list_name
 }
   end
 
