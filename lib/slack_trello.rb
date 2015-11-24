@@ -12,6 +12,7 @@ end
 
 require_all("lib/slack_trello/slack_helpers")
 require_all("lib/slack_trello/trello_helpers")
+require_relative("./slack_trello/commands/standard_messages.rb")
 require_all("lib/slack_trello/commands")
 
 module SlackTrello

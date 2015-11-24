@@ -1,5 +1,7 @@
 module SlackTrello; module Commands; class Retro
 
+  include StandardMessages
+
   include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :slack_post_response, :webhook_url
@@ -21,12 +23,8 @@ module SlackTrello; module Commands; class Retro
 
   private
 
-  def help_message
-%{:cry: Invalid format
-Your message: #{text}
-Example: /retro (#{list_names.first}) blah blah blah
-Available list names: #{list_names.join(", ")}
-}
+  def example_command
+    "/retro (#{list_names.first}) blah blah blah"
   end
 
   def speaker
@@ -57,10 +55,6 @@ Available list names: #{list_names.join(", ")}
 
   def trello_list_name
     args[0]
-  end
-
-  def list_not_found_message
-    "A Trello list named #{trello_list_name} must be added to the '#{trello_board_name}' board for this command to function."
   end
 
   def success_message

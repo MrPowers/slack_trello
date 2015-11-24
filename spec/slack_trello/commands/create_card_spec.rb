@@ -17,7 +17,7 @@ module SlackTrello; module Commands; describe CreateCard do
         "text" => "some_board some_list some stuff blah"
       }
       invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
-      help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
+      help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /card (trello_board trello_list) card title\n"
       expect(invalid_card.run).to eq help_message
     end
 
@@ -27,7 +27,7 @@ module SlackTrello; module Commands; describe CreateCard do
         "text" => ""
       }
       invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
-      help_message = ":cry: Invalid format\nYour message: \nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
+      help_message = ":cry: Invalid format\nYour message: \nExample: /card (trello_board trello_list) card title\n"
       expect(invalid_card.run).to eq help_message
     end
 
@@ -37,7 +37,7 @@ module SlackTrello; module Commands; describe CreateCard do
         "text" => "(trello_board) something"
       }
       invalid_card = CreateCard.new(slack_args.merge(custom_args), "webhook url")
-      help_message = ":cry: Invalid format\nYour message: (trello_board) something\nExample: /card (trello_board trello_list) card title\nIf the Trello board/list has spaces, replace them with underscores\nFor example, Some Board Name => some_board_name\n"
+      help_message = ":cry: Invalid format\nYour message: (trello_board) something\nExample: /card (trello_board trello_list) card title\n"
       expect(invalid_card.run).to eq help_message
     end
 

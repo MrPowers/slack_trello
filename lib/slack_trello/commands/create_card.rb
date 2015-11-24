@@ -1,5 +1,7 @@
 module SlackTrello; module Commands; class CreateCard
 
+  include StandardMessages
+
   include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :slack_post_response, :webhook_url
@@ -21,13 +23,8 @@ module SlackTrello; module Commands; class CreateCard
 
   private
 
-  def help_message
-%{:cry: Invalid format
-Your message: #{text}
-Example: /card (trello_board trello_list) card title
-If the Trello board/list has spaces, replace them with underscores
-For example, Some Board Name => some_board_name
-}
+  def example_command
+    "/card (trello_board trello_list) card title"
   end
 
   def speaker
@@ -58,10 +55,6 @@ For example, Some Board Name => some_board_name
 
   def trello_list_name
     args[1]
-  end
-
-  def list_not_found_message
-    "A Trello list named #{trello_list_name} must be added to the '#{trello_board_name}' board for this command to function."
   end
 
   def success_message

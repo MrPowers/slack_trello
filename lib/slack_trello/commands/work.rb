@@ -1,5 +1,7 @@
 module SlackTrello; module Commands; class Work
 
+  include StandardMessages
+
   attr_reader :slack_post_response, :webhook_url
 
   def initialize(slack_post_args, webhook_url)
@@ -46,10 +48,6 @@ module SlackTrello; module Commands; class Work
 
   def trello_list_name
     'From Chat'
-  end
-
-  def list_not_found_message
-    "A Trello list named #{trello_list_name} must be added to the '#{trello_board_name}' board for the work command to function."
   end
 
   def success_message

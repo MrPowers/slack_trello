@@ -18,32 +18,32 @@ module SlackTrello; module Commands; describe Retro do
     it "returns a help message if the format is invalid" do
       args = post_args.merge({"text" => "some_board some_list some stuff blah"})
       invalid_card = Retro.new(args, "webhook url")
-      expect(invalid_card).to receive(:list_names).twice.and_return([])
-      help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /retro () blah blah blah\nAvailable list names: \n"
+      expect(invalid_card).to receive(:list_names).and_return([])
+      help_message = ":cry: Invalid format\nYour message: some_board some_list some stuff blah\nExample: /retro () blah blah blah\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "returns a help message if the text equals the string help" do
       args = post_args.merge({"text" => "help"})
       invalid_card = Retro.new(args, "webhook url")
-      expect(invalid_card).to receive(:list_names).twice.and_return([])
-      help_message = ":cry: Invalid format\nYour message: help\nExample: /retro () blah blah blah\nAvailable list names: \n"
+      expect(invalid_card).to receive(:list_names).and_return([])
+      help_message = ":cry: Invalid format\nYour message: help\nExample: /retro () blah blah blah\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "returns a help message if the text is blank" do
       args = post_args.merge({"text" => ""})
       invalid_card = Retro.new(args, "webhook url")
-      expect(invalid_card).to receive(:list_names).twice.and_return([])
-      help_message = ":cry: Invalid format\nYour message: \nExample: /retro () blah blah blah\nAvailable list names: \n"
+      expect(invalid_card).to receive(:list_names).and_return([])
+      help_message = ":cry: Invalid format\nYour message: \nExample: /retro () blah blah blah\n"
       expect(invalid_card.run).to eq help_message
     end
 
     it "returns a help message if an argument is not supplied" do
       args = post_args.merge({"text" => "() something"})
       invalid_card = Retro.new(args, "webhook url")
-      expect(invalid_card).to receive(:list_names).twice.and_return([])
-      help_message = ":cry: Invalid format\nYour message: () something\nExample: /retro () blah blah blah\nAvailable list names: \n"
+      expect(invalid_card).to receive(:list_names).and_return([])
+      help_message = ":cry: Invalid format\nYour message: () something\nExample: /retro () blah blah blah\n"
       expect(invalid_card.run).to eq help_message
     end
 
