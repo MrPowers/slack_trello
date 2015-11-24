@@ -1,7 +1,6 @@
 module SlackTrello; module Commands; class Retro
 
-  include StandardMessages
-
+  include StandardStuff
   include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :slack_post_response, :webhook_url
@@ -27,15 +26,6 @@ module SlackTrello; module Commands; class Retro
     "/retro (#{list_names.first}) blah blah blah"
   end
 
-  def speaker
-    args = {
-      webhook_url: webhook_url,
-      channel: slack_post_response.channel_name,
-      username: slack_post_response.user_name
-    }
-    SlackTrello::SlackHelpers::Speaker.new(args)
-  end
-
   def trello_card_creator
     args = {
       board_name: trello_board_name,
@@ -55,10 +45,6 @@ module SlackTrello; module Commands; class Retro
 
   def trello_list_name
     args[0]
-  end
-
-  def success_message
-    ":mega: [#{slack_post_response.user_name}] has created a new trello card: <#{trello_card.short_url}|#{slack_post_response.text.strip}>"
   end
 
   def card_title

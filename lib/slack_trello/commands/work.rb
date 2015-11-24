@@ -1,6 +1,6 @@
 module SlackTrello; module Commands; class Work
 
-  include StandardMessages
+  include StandardStuff
 
   attr_reader :slack_post_response, :webhook_url
 
@@ -18,15 +18,6 @@ module SlackTrello; module Commands; class Work
   end
 
   private
-
-  def speaker
-    args = {
-      webhook_url: webhook_url,
-      channel: slack_post_response.channel_name,
-      username: slack_post_response.user_name
-    }
-    SlackTrello::SlackHelpers::Speaker.new(args)
-  end
 
   def trello_card_creator
     args = {
@@ -48,10 +39,6 @@ module SlackTrello; module Commands; class Work
 
   def trello_list_name
     'From Chat'
-  end
-
-  def success_message
-    ":mega: [#{slack_post_response.user_name}] has created a new work card: <#{trello_card.short_url}|#{slack_post_response.text.strip}>"
   end
 
   def card_title

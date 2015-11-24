@@ -1,5 +1,6 @@
 module SlackTrello; module Commands; class CopyCards
 
+  include StandardStuff
   include SlackTrello::SlackHelpers::TextParser
 
   attr_reader :slack_post_response, :webhook_url
@@ -20,20 +21,8 @@ module SlackTrello; module Commands; class CopyCards
 
   private
 
-  def help_message
-%{:cry: Invalid format
-Your message: #{slack_post_response.text}
-Example: /copy_cards (source_board, source_list, destination_board, destination_list)
-}
-  end
-
-  def speaker
-    args = {
-      webhook_url: webhook_url,
-      channel: slack_post_response.channel_name,
-      username: slack_post_response.user_name
-    }
-    SlackTrello::SlackHelpers::Speaker.new(args)
+  def example_command
+    "/copy_cards (source_board, source_list, destination_board, destination_list)"
   end
 
   def card_copier
